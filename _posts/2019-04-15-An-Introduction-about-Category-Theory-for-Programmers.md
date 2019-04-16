@@ -10,8 +10,6 @@
 
 >> -- <cite>[Barry Mazur][1]</cite>
 
-[1]:https://en.wikipedia.org/wiki/Barry_Mazur
-
 ## Introduction
 
 We, as homo sapiens, have been solving problems by decomposing-recomposing things since the beginning of our time. From chiseling bones into arrows to building space shuttles from scratch sending human into space. We do things this way because of our minds are limited, we have to chop huge information down apart into smaller parts that an individual's mind can process biologically, and then recomposing the to get full picture.
@@ -63,7 +61,17 @@ The simplest formal definition of a category is:
 
 People also often write *x* ∈ ***C*** instead of *x* ∈ *C*<sub>0</sub> as a short way to indicate that *x* is an object of ***C***.
 
-TLTR, a category can be seen as quiver with arrows, and each arrow has two objects on their head and tail, and there are special arrows that the head and tail objects are the same. An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant, because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, but we need them to induce more rich isomorphisms structure in the category.
+TLTR, intuitively, a category can be seen as quiver filled with arrows and objects, each arrow has following properties:
+
+1. each arrow has two objects on their head and tail, each objects can be seen as a ***Set***,
+2. and there are special arrows that the head and tail objects are the same,
+3. if one arrow's head match with the others tail, then there must be another arrow in the quiver which is the two arrow combined together.
+
+And we can also explaining a category visually by using commutative diagrams. It's also deadly simple, just drawing all the information into a paper: objects as dots, morphisms goes between the dots.
+
+![A category consists of 3 objects and their morphisms](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/3_objs_category.png)
+
+An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant, because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but all important concept of isomorphism relies for its definition on the concept of identity morphism][2].
 
 In a programming language, Typescript in our case, we can treat types as objects(not only the type that are predefined in Typescript, but also your own classes), and morphisms as function that mapping between types. But one thing to notice that, functions should be total, which means given one specific input value, there can be only one determined effect, which means they are pure. So the type notation for the identity in Typescript morphism can be written as:
 
@@ -83,7 +91,17 @@ identity(nan) === nan // false
 
 ***
 
-Now we are able to prove the correctness of our program by only using type notations of our functions while leaving the implementation alone in some extent.(Still a long way to do the [Formal verification](https://en.wikipedia.org/wiki/Formal_verification) even by using category theory alone).
+So far we are able to prove the correctness of our program in some extent: by only using type notations of our functions to prove whether functions can be composed together while leaving the implementation alone. (But still a long way to do the [Formal verification][3], the other tools would be Type theory, denotational/operational semantics, proof theory, etc).
+
+As you might remember, the functions between ***Set*** can be a surjection or  an injection or can be both in the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
+
+An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
+> *g*<sub>1</sub>∘*f* = *g*<sub>2</sub>∘*f* => *g*<sub>1</sub> = *g*<sub>2</sub>.
+
+An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
+> *f*∘*μ*<sub>1</sub> = *f*∘*μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>.
+
+In a category whose objects are sets, if an morphism is both epi and mono, then we can tell that the morphism is invertible and the head and the tail objects of the arrow are isomorphic.
 
 ### Universal Properties and Universal Construction
 
@@ -92,3 +110,7 @@ Todo
 ## Conclusion
 
 Todo
+
+[1]:https://en.wikipedia.org/wiki/Barry_Mazur
+[2]:https://www.quora.com/What-is-the-purpose-of-identity-morphisms-in-category-theory
+[3]:https://en.wikipedia.org/wiki/Formal_verification
