@@ -97,10 +97,10 @@ So far we are able to prove the correctness of our program in some extent: by on
 As you might remember, the functions between ***Set*** can be a surjection or  an injection or can be both in the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
 
 An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
-> *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>.
+> *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
 
 An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
-> *f* ∘ *μ*<sub>1</sub> = *f* ∘ *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>.
+> *f* ∘ *μ*<sub>1</sub> = *f* ∘ *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>
 
 In a category whose objects are sets, if an morphism is both epi and mono, then we can tell that the morphism is invertible and the head and the tail objects of the arrow are isomorphic.
 
@@ -124,6 +124,7 @@ Todo
 ## Bibliography
 1. [Category theory for programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
 2. [TheCatster's video](https://www.youtube.com/user/TheCatsters/playlists)
+3. [Seven Sketches in Compositionality](http://math.mit.edu/~dspivak/teaching/sp18/7Sketches.pdf)
 
 [1]:https://en.wikipedia.org/wiki/Barry_Mazur
 [2]:https://www.quora.com/What-is-the-purpose-of-identity-morphisms-in-category-theory
