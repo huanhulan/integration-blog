@@ -10,6 +10,7 @@
 
 >> -- <cite>[Barry Mazur][1]</cite>
 
+---
 ## Introduction
 
 We, as homo sapiens, have been solving problems by decomposing-recomposing things since the beginning of our time. From chiseling bones into arrows to building space shuttles from scratch sending human into space. We do things this way because of our minds are limited, we have to chop huge information down apart into smaller parts that an individual's mind can process biologically, and then recomposing the to get full picture.
@@ -32,7 +33,7 @@ So what is the category-theory about? It’s big insight is that we can figure o
 
 For mathematicians, the category theory provides a way to find a good (not the good, because there is no such thing) level of abstraction for thinking about mathematical structures. For us, as programmers and software engineers, we can use it to figure out things like: whether two functions can always be composed together, whether one data structure is alike to the other, whether the abstraction level of the code for a question is good enough, or even how to confine and express side effects, etc.
 
-In the following chapters, I will try to explain basic concepts of the category theory and also show you the applications by using Typescript (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
+In the following chapters, I will try to explain basic concepts of the category theory intuitively and also show you the applications by using Typescript (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
 
 ## Basic Concepts of Category theory
 
@@ -107,9 +108,22 @@ In a category whose objects are sets, if an morphism is both epi and mono, then 
 
 Todo
 
+### Functor
+
+Todo
+
+### Kleisli Category and Monad
+
+Todo
+
 ## Conclusion
 
 Todo
+
+---
+## Bibliography
+1. [Category theory for programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
+2. [TheCatster's video](https://www.youtube.com/user/TheCatsters/playlists)
 
 [1]:https://en.wikipedia.org/wiki/Barry_Mazur
 [2]:https://www.quora.com/What-is-the-purpose-of-identity-morphisms-in-category-theory
