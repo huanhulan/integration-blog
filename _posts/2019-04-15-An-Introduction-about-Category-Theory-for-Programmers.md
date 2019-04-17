@@ -64,7 +64,7 @@ People also often write *x* ∈ ***C*** instead of *x* ∈ *C*<sub>0</sub> as a 
 
 TLTR, intuitively, a category can be seen as quiver filled with arrows and objects, each arrow has following properties:
 
-1. each arrow has two objects on their head and tail, each objects can be seen as a ***Set***,
+1. each arrow has two objects on their head and tail, each objects can be seen as a ***set***,
 2. and there are special arrows that the head and tail objects are the same,
 3. if one arrow's head match with the others tail, then there must be another arrow in the quiver which is the two arrow combined together.
 
@@ -72,7 +72,9 @@ And we can also explaining a category visually by using commutative diagrams. It
 
 ![A category consists of 3 objects and their morphisms](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/3_objs_category.png)
 
-An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant, because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but all important concept of isomorphism relies for its definition on the concept of identity morphism][2].
+An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant, because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but all important concept of isomorphism relies for its definition on the concept of identity morphism][2]:
+
+> Given objects *A* and *B* in a category ***C***, an isomorphism is a morphism ƒ: A → B that has an inverse, i.e. there exists a morphism g: B → A with ƒ∘g = 1<sub>B</sub> and g∘ƒ = 1<sub>A</sub>.
 
 In a programming language, Typescript in our case, we can treat types as objects(not only the type that are predefined in Typescript, but also your own classes), and morphisms as function that mapping between types. But one thing to notice that, functions should be total, which means given one specific input value, there can be only one determined effect, which means they are pure. So the type notation for the identity in Typescript morphism can be written as:
 
@@ -94,7 +96,7 @@ identity(nan) === nan // false
 
 So far we are able to prove the correctness of our program in some extent: by only using type notations of our functions to prove whether functions can be composed together while leaving the implementation alone. (But still a long way to do the [*formal verification*][3], the other tools would be Type theory, denotational/operational semantics, proof theory, etc).
 
-As you might remember, the functions between ***Set*** can be a surjection or  an injection or can be both in the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
+As you might remember, the functions between ***set*** can be a surjection or  an injection or can be both in the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
 
 An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
 > *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
@@ -106,7 +108,56 @@ In a category whose objects are sets, if an morphism is both epi and mono, then 
 
 ### Universal Properties and Universal Construction
 
-Todo
+As we mentioned above, category theory give us ability to study a object in terms of its relationships with the others. One way of achieving this is by finding *universal properties*.
+
+Here I will using a brilliant example from [Eugenia Chen][4]'s wonderful talk -- [Category Theory in Life][5].
+
+The factors of 30 can form following diagram:
+
+![factors of 30](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/factors_of_30.png)
+
+Since the integers can be represented as ***sets*** in *set theory*, then the diagram above can be further interpreted into following diagrams by 30's prime factors (for simplicity, using {*x*, *y*} as cartesian product *x*×*y*):
+
+![factors of 30 in set](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/factors_of_30_1.png)
+
+The same methodology can be applied to any other 'prime factors', take 'clean', 'performance' and 'architect' as an example, clearly the following diagram holds:
+
+![software style comparison](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/software_style_comparison.png)
+
+So why? Math is tool to answer 'why did this happen?', and the category theory is the tool to answer 'why math happens?'. The diagrams above holds because of the existence of the prime factors. So by combining them, we can get other factors, all the way down, finally we got ourselves a *partial ordered set*. And the reason why the second one can use the same logic is because of the isomorphism between dualities:
+> clean→dirty ≌ performance→slow ≌  architect→no-architect
+
+So the similarity between the diagrams kinda explain the word 'universal'. Now I will formally introduce the concept of *universal properties*.
+
+First, ***initial object***:
+> An initial object in a category ***C*** is a object *I* such that for all object *X* there is a unique morphism:
+>> *I* → *X*
+
+Second, ***terminal object***:
+> An terminal object in a category ***C*** is a object *T* such that for all object *X* there is a unique morphism:
+>> *X* → *T*
+
+In the diagrams above, the initial objects are 30, {2,3,5} and 'clean performance architect' because they have connections between any other objects in the diagram that they belong to (recall the properties of morphisms' composition). And the terminal objects are 1, {∅} and 'dirty slow no-architect'.
+
+But a category may have many initial/terminal objects if it has. But all of them, initial/terminal objects, are unique up to a unique isomorphism. So in some extent, we can use the word 'the' in the definition of the initial/terminal object.
+
+Further more, in the category of sets (I will denote it as ***Set*** in follows chapters), the initial object is the empty set:∅, because ∅ is subset of every set. And the terminal object in ***Set*** are the the singleton set (again, singleton is up to isomorphism).
+
+Since we said that types can be seen as sets, so morphisms points to the terminal object can be written in Typescript as:
+
+```Typescript
+function unit(arg:any){
+    return [];// {} is also good enough
+}
+```
+
+But when we can't written a strict morphisms points out from the initial object, because theoretically, empty set can't have members, so any morphism points out from empty set is the empty set itself. But *void*, *null* and *undefined* are all implemented in javascript, so they have members which means they are not empty at all. That's why I will using Haskell notation for the morphism called *absurd*:
+
+```Haskell
+absurd :: Void -> a
+```
+
+Back to game, you see that the definition of the initial and terminal object are simply inverting the arrows. This shows a very powerful aspect of the category theory: ***duality***. Which means we only need to prove a theorem or construct a category for one direction and by flipping every arrows in the original diagram we are guarantee to get the other in opposite category for free which really increases the productivity. The constructions in the opposite category are often prefixed with “co”. As I will introduce products and co-products as example latter.
 
 ### Functor
 
@@ -125,7 +176,11 @@ Todo
 1. [Category theory for programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
 2. [TheCatster's video](https://www.youtube.com/user/TheCatsters/playlists)
 3. [Seven Sketches in Compositionality](http://math.mit.edu/~dspivak/teaching/sp18/7Sketches.pdf)
+4. Reason Isomorphically!
+5. What you needa know about Yoneda
 
 [1]:https://en.wikipedia.org/wiki/Barry_Mazur
 [2]:https://www.quora.com/What-is-the-purpose-of-identity-morphisms-in-category-theory
 [3]:https://en.wikipedia.org/wiki/Formal_verification
+[4]: https://en.wikipedia.org/wiki/Eugenia_Cheng#Early_life_and_education
+[5]: https://www.youtube.com/watch?v=ho7oagHeqNc
