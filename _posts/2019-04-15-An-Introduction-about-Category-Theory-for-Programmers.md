@@ -13,7 +13,7 @@
 ---
 ## Introduction
 
-We, as homo sapiens, have been solving problems by decomposing-recomposing things since the beginning of our time. From chiseling bones into arrows to building space shuttles from scratch sending human into space. We do things this way because of our minds are limited, we have to chop huge information down apart into smaller parts that an individual's mind can process biologically, and then recomposing the to get full picture.
+We, as homo sapiens, have been solving problems by decomposing-recomposing things since the beginning of our time. From chiseling bones into arrows to building space shuttles from scratch sending human into space. We do things this way because of our minds are limited, we have to chop huge information down apart into smaller parts that an individual's mind can process biologically, and then recomposing them back to get full picture of the original information.
 
 As programmers and software engineers, we do things this way in our daily jobs conformably and repeatedly: decomposing one huge system into many sub systems or sub-modules and then using things like function calls or networking to glue them up by following specific architectural style like micro-service to meet the requirements that the system needed.
 
@@ -72,7 +72,7 @@ And we can also explaining a category visually by using commutative diagrams. It
 
 ![A category consists of 3 objects and their morphisms](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/3_objs_category.png)
 
-An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant, because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but all important concept of isomorphism relies for its definition on the concept of identity morphism][2]:
+An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant: because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but all important concept of isomorphism relies for its definition on the concept of identity morphism][2]:
 
 > Given objects *A* and *B* in a category ***C***, an isomorphism is a morphism ƒ: A → B that has an inverse, i.e. there exists a morphism g: B → A with ƒ∘g = 1<sub>B</sub> and g∘ƒ = 1<sub>A</sub>.
 
@@ -176,8 +176,8 @@ Todo
 1. [Category theory for programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
 2. [TheCatster's video](https://www.youtube.com/user/TheCatsters/playlists)
 3. [Seven Sketches in Compositionality](http://math.mit.edu/~dspivak/teaching/sp18/7Sketches.pdf)
-4. Reason Isomorphically!
-5. What you needa know about Yoneda
+4. [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf)
+5. [What you needa know about Yoneda](https://www.cs.ox.ac.uk/jeremy.gibbons/publications/proyo.pdf)
 
 [1]:https://en.wikipedia.org/wiki/Barry_Mazur
 [2]:https://www.quora.com/What-is-the-purpose-of-identity-morphisms-in-category-theory
