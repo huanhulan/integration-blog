@@ -33,7 +33,7 @@ So what is the category-theory about? It’s big insight is that we can figure o
 
 For mathematicians, the category theory provides a way to find a good (not the good, because there is no such thing) level of abstraction for thinking about mathematical structures. For us, as programmers and software engineers, we can use it to figure out things like: whether two functions can always be composed together, whether one data structure is alike to the other, whether the abstraction level of the code for a question is good enough, or even how to confine and express side effects, etc.
 
-In the following chapters, I will try to explain basic concepts of the category theory intuitively and also show you the applications by using Typescript (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
+In the following chapters, I will try to explain basic concepts of the category theory intuitively and also show you the applications by using `Typescript` (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
 
 ## Basic Concepts of Category theory
 
@@ -72,7 +72,7 @@ And we can also explaining a category visually by using commutative diagrams. It
 
 ![A category consists of 3 objects and their morphisms](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/3_objs_category.png)
 
-An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant: because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but all important concept of isomorphism relies for its definition on the concept of identity morphism][2]:
+An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant: because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but the concept of isomorphism relies for its definition on the concept of identity morphism][2]:
 
 > Given objects *A* and *B* in a category ***C***, an isomorphism is a morphism ƒ: A → B that has an inverse, i.e. there exists a morphism g: B → A with ƒ∘g = 1<sub>B</sub> and g∘ƒ = 1<sub>A</sub>.
 
@@ -96,7 +96,7 @@ identity(nan) === nan // false
 
 So far we are able to prove the correctness of our program in some extent: by only using type notations of our functions to prove whether functions can be composed together while leaving the implementation alone. (But still a long way to do the [*formal verification*][3], the other tools would be Type theory, denotational/operational semantics, proof theory, etc).
 
-As you might remember, the functions between ***set*** can be a surjection or  an injection or can be both in the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
+As you might know, the functions between ***set*** can be a ***surjection*** or  an ***injection*** or can be both in the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
 
 An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
 > *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
@@ -104,7 +104,18 @@ An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms
 An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
 > *f* ∘ *μ*<sub>1</sub> = *f* ∘ *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>
 
-In a category whose objects are sets, if an morphism is both epi and mono, then we can tell that the morphism is invertible and the head and the tail objects of the arrow are isomorphic.
+In a category whose objects are sets, if an morphism is both `epi` and `mono`, then we can tell that the morphism is `invertible` and the head and the tail objects of the arrow are `isomorphic`.
+
+An simple example of isomorphic can be found in the representations of natural numbers. Given infinite amount of storage, let's say:
+> `[]`, as an instance of array, can be treated as 0;
+>
+> `[[]]` can be treated as 1;
+>
+> `[[[]]]` can be treated as 2;
+>
+> ...
+
+Then it's easy to prove that there is an isomorphism between all natural numbers and this square brackets kind of representation. Actually this kind of representation has a name-- `Curry-Howard isomorphism`.
 
 ### Universal Properties and Universal Construction
 
@@ -124,8 +135,8 @@ The same methodology can be applied to any other 'prime factors', take 'clean', 
 
 ![software style comparison](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/software_style_comparison.png)
 
-So why? Math is tool to answer 'why did this happen?', and the category theory is the tool to answer 'why math happens?'. The diagrams above holds because of the existence of the prime factors. So by combining them, we can get other factors, all the way down, finally we got ourselves a *partial ordered set*. And the reason why the second one can use the same logic is because of the isomorphism between dualities:
-> clean→dirty ≌ performance→slow ≌  architect→no-architect
+So why? Math is tool to answer 'why did this happen?', and the category theory is the tool to answer 'why math happens?'. The diagrams above holds because of the existence of the prime factors. So by combining them, we can get other factors, all the way down, finally we got ourselves a *partial ordered set*. And the reason why the second one can use the same logic is because of the isomorphism between these dual concepts:
+> clean → dirty ≌ performance → slow ≌ architect → no-architect
 
 So the similarity between the diagrams kinda explain the word 'universal'. Now I will formally introduce the concept of *universal properties*.
 
@@ -151,7 +162,7 @@ function unit(arg:any){
 }
 ```
 
-But when we can't written a strict morphisms points out from the initial object, because theoretically, empty set can't have members, so any morphism points out from empty set is the empty set itself. But *void*, *null* and *undefined* are all implemented in javascript, so they have members which means they are not empty at all. That's why I will using Haskell notation for the morphism called *absurd*:
+But when we can't written a strict morphisms points out from the initial object, because theoretically, empty set can't have members, so any morphism points out from empty set is the empty set itself. But *void*, *null* and *undefined* are all implemented in javascript, so they have members which means they are not empty at all. That's why I will using `Haskell` notation for the morphism called *absurd*, since the `Void` in Haskell` corresponds to the concept of empty set:
 
 ```Haskell
 absurd :: Void -> a
