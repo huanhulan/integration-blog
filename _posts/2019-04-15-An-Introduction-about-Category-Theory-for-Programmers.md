@@ -67,6 +67,7 @@ TLTR, intuitively, a category can be seen as quiver filled with arrows and objec
 1. each arrow has two objects on their head and tail, each objects can be seen as a ***set***,
 2. and there are special arrows that the head and tail objects are the same,
 3. if one arrow's head match with the others tail, then there must be another arrow in the quiver which is the two arrow combined together.
+4. Arrows can represent `any binary relationship`, from the ≤ relationship in natural numbers to description like “_ is _'s grand parents”.
 
 And we can also explaining a category visually by using commutative diagrams. It's also deadly simple, just drawing all the information into a paper: objects as dots, morphisms goes between the dots.
 
