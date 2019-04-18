@@ -97,7 +97,7 @@ identity(nan) === nan // false
 
 So far we are able to prove the correctness of our program in some extent: by only using type notations of our functions to prove whether functions can be composed together while leaving the implementation alone. (But still a long way to do the [*formal verification*][3], the other tools would be Type theory, denotational/operational semantics, proof theory, etc).
 
-As you might know, the functions between ***set*** can be a ***surjection*** or  an ***injection*** or can be both in the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
+As you might know, the functions between ***set*** can be a ***surjection*** or  an ***injection*** or can be both at the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
 
 An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
 > *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
