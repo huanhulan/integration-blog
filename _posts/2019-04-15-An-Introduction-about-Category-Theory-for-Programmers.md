@@ -43,9 +43,9 @@ The simplest formal definition of a category is:
 
 > A category ***C*** consists of
 >
->> * a collection *C*<sub>0</sub> of objects;
+>> * a collection *C*<sub>0</sub> of `objects`;
 >>
->> * for each pair *x*, *y* of objects, a collection *C*<sub>1</sub>(x, y) of morphisms from *x* to *y*;
+>> * for each pair *x*, *y* of objects, a collection *C*<sub>1</sub>(x, y) of `morphisms` from *x* to *y*;
 >>
 >> * for each triple *x*, *y*, *z* of objects, a function ∘:
 >>>
@@ -53,12 +53,12 @@ The simplest formal definition of a category is:
 >>>
 >>> which assigns, to any appropriate pair of morphisms *f*, *g*, their composite morphism g∘f (called: g after f)
 >>
->> * for each object *x*, an element id<sub>x</sub> or 1<sub>x</sub> of *C*<sub>1</sub>(x, x), the identity morphism on x;
+>> * for each object *x*, an element id<sub>x</sub> or 1<sub>x</sub> of *C*<sub>1</sub>(x, x), the `identity morphism` on x;
 >>
 >> * such that the following properties are satisfied:
 >>>
->>> * associativity: for each quadruple *w*, *x*, *y*, *z* of objects, if *f* ∈ *C*<sub>1</sub>(y, z), *g* ∈ *C*<sub>1</sub>(x, y), and *h* ∈ *C*<sub>1</sub>(w,x), then (*f*∘*g*)∘*h*=*f*∘(*g*∘*h*);
->>> * the left and right unit laws: for each pair *x*, *y*, of objects, if *f* ∈ *C*<sub>1</sub>(x,y), then 1<sub>y</sub>∘*f*=*f*=*f*∘1<sub>x</sub>.
+>>> * `associativity`: for each quadruple *w*, *x*, *y*, *z* of objects, if *f* ∈ *C*<sub>1</sub>(y, z), *g* ∈ *C*<sub>1</sub>(x, y), and *h* ∈ *C*<sub>1</sub>(w,x), then (*f*∘*g*)∘*h*=*f*∘(*g*∘*h*);
+>>> * `the left and right unit laws`: for each pair *x*, *y*, of objects, if *f* ∈ *C*<sub>1</sub>(x,y), then 1<sub>y</sub>∘*f*=*f*=*f*∘1<sub>x</sub>.
 
 People also often write *x* ∈ ***C*** instead of *x* ∈ *C*<sub>0</sub> as a short way to indicate that *x* is an object of ***C***.
 
@@ -66,8 +66,9 @@ TLTR, intuitively, a category can be seen as quiver filled with arrows and objec
 
 1. each arrow has two objects on their head and tail, each objects can be seen as a ***set***,
 2. and there are special arrows that the head and tail objects are the same,
-3. if one arrow's head match with the others tail, then there must be another arrow in the quiver which is the two arrow combined together.
-4. Arrows can represent `any binary relationship`, from the ≤ relationship in natural numbers to description like “_ is _'s grand parents”.
+3. and there can be empty arrows means that there is no relationships between the arrow's head and its tail,
+4. if one arrow's head match with the others tail, then there must be another arrow in the quiver which is the two arrow combined together.
+5. Arrows can represent `any binary relationship`, from the ≤ relationship in natural numbers to description like “_ is _'s grand parents”.
 
 And we can also explaining a category visually by using commutative diagrams. It's also deadly simple, just drawing all the information into a paper: objects as dots, morphisms goes between the dots.
 
@@ -97,26 +98,26 @@ identity(nan) === nan // false
 
 So far we are able to prove the correctness of our program in some extent: by only using type notations of our functions to prove whether functions can be composed together while leaving the implementation alone. (But still a long way to do the [*formal verification*][3], the other tools would be Type theory, denotational/operational semantics, proof theory, etc).
 
-As you might know, the functions between ***set*** can be a ***surjection*** or  an ***injection*** or can be both at the same time. In category theory, the morphisms has similar properties called epimorphism and monomorphism.
+As you might know, the functions in the `set theory` can be a `surjection` (which simply means that for every elements in the co-domain there is a corresponding element in the domain), or  an `injection` (different elements in the domain would be mapping to different element in the co-domain) or can be both at the same time. In category theory, the morphisms has similar properties called `epimorphism` and `monomorphism`:
 
-An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
-> *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
+* An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
+    > *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
 
-An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
-> *f* ∘ *μ*<sub>1</sub> = *f* ∘ *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>
+* An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
+    > *f* ∘ *μ*<sub>1</sub> = *f* ∘ *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>
 
 In a category whose objects are sets, if an morphism is both `epi` and `mono`, then we can tell that the morphism is `invertible` and the head and the tail objects of the arrow are `isomorphic`.
 
 An simple example of isomorphic can be found in the representations of natural numbers. Given infinite amount of storage, let's say:
-> `[]`, as an instance of array, can be treated as 0;
+> **[]**, as an instance of array, can be treated as 0;
 >
-> `[[]]` can be treated as 1;
+> **[[]]** can be treated as 1;
 >
-> `[[[]]]` can be treated as 2;
+> **[[[]]]** can be treated as 2;
 >
 > ...
 
-Then it's easy to prove that there is an isomorphism between all natural numbers and this square brackets kind of representation. Actually this kind of representation has a name-- `Curry-Howard isomorphism`.
+Then it's easy to prove that there is an isomorphism between all natural numbers and this square brackets kind of representation. Actually this kind of representation has a name -- `Curry-Howard isomorphism`.
 
 ### Universal Properties and Universal Construction
 
@@ -139,13 +140,13 @@ The same methodology can be applied to any other 'prime factors', take 'clean', 
 So why? Math is tool to answer 'why did this happen?', and the category theory is the tool to answer 'why math happens?'. The diagrams above holds because of the existence of the prime factors. So by combining them, we can get other factors, all the way down, finally we got ourselves a *partial ordered set*. And the reason why the second one can use the same logic is because of the isomorphism between these dual concepts:
 > clean → dirty ≌ performance → slow ≌ architect → no-architect
 
-So the similarity between the diagrams kinda explain the word 'universal'. Now I will formally introduce the concept of *universal properties*.
+So the similarity between the diagrams kinda explain the word 'universal'. Now I will formally introduce two basic concept of *universal properties*.
 
-First, ***initial object***:
+First, `initial object`:
 > An initial object in a category ***C*** is a object *I* such that for all object *X* there is a unique morphism:
 >> *I* → *X*
 
-Second, ***terminal object***:
+Second, `terminal object`:
 > An terminal object in a category ***C*** is a object *T* such that for all object *X* there is a unique morphism:
 >> *X* → *T*
 
@@ -153,7 +154,7 @@ In the diagrams above, the initial objects are 30, {2,3,5} and 'clean performanc
 
 But a category may have many initial/terminal objects if it has. But all of them, initial/terminal objects, are unique up to a unique isomorphism. So in some extent, we can use the word 'the' in the definition of the initial/terminal object.
 
-Further more, in the category of sets (I will denote it as ***Set*** in follows chapters), the initial object is the empty set:∅, because ∅ is subset of every set. And the terminal object in ***Set*** are the the singleton set (again, singleton is up to isomorphism).
+Further more, in the category of sets (I will denote it as ***Set*** in follows chapters, be careful it starts with the upper case 'S'), the initial object is the empty set:∅, because ∅ is subset of every set. And the terminal object in ***Set*** are the the singleton set (again, singleton is up to isomorphism).
 
 Since we said that types can be seen as sets, so morphisms points to the terminal object can be written in Typescript as:
 
@@ -169,7 +170,89 @@ But when we can't written a strict morphisms points out from the initial object,
 absurd :: Void -> a
 ```
 
-Back to game, you see that the definition of the initial and terminal object are simply inverting the arrows. This shows a very powerful aspect of the category theory: ***duality***. Which means we only need to prove a theorem or construct a category for one direction and by flipping every arrows in the original diagram we are guarantee to get the other in opposite category for free which really increases the productivity. The constructions in the opposite category are often prefixed with “co”. As I will introduce products and co-products as example latter.
+Back to game, you see that the definition of the initial and terminal object are simply inverting the arrows. This shows a very powerful aspect of the category theory: ***duality***. Which means we only need to prove a theorem or construct a category for one direction and by flipping every arrows in the original diagram we are guarantee to get the other in opposite category for free which really increases the productivity. The constructions in the opposite category are often prefixed with the world: “*co*”. I will use the products and co-products as an example.
+
+Imagine you have two lines, colored in red and blue like the picture down below. How many ways can you describe them all at the same time?
+
+![software style comparison](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/two_lines.png)
+
+Of course the most intuitive way is just like what I said, simply just putting them together. In a mathematical point of view, if we just thinking the two line as two sets of coordinates, then the structure to describe the two line into one is just a `disjoint union` of two sets -- a set that simply just put the constituent sets together even if the constituent sets have their intersections.
+
+![two lines together](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/two_lines_in_disjoint_union.png)
+
+The another way of thinking comes trickier, it's critical insight is that the 1-dimensional lines can be seen as **projections from higher dimensions**. So the two lines above, can be seen as two projections from one single 2-dimensional object using 2-different color of flashlights illuminating at different angles. But this 2-dimensional object can have many shapes, for example, it can be a square whose width and height is equal to the lengths of 2 lines, or a square has the same size but has a hole in its center, or it can be an ellipse whose axis is equal to the lengths of 2 lines, etc.
+
+So which one is the best one? The best one should be the one that doesn't involve extra information. So neither the ellipse nor the square that has a hole meets this requirement. And this is true meaning of the `universal`.
+
+Now let's using a commutative diagram to describe the way we just used to find the best 2-dimensional object which is a square whose width and height is equal to the lengths of 2 lines. As we can see all 3 objects can have projections into the two lines, but 2 of them have 2 projections, which can be seen as cutting of extra information, into the best one we just found.
+
+![relationships between lines and their higher dimension sources](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/product_example.svg)
+
+And we just found ourselves a product! Here is the formal definition of the `categorical product`:
+
+> Let ***C*** be a category with some objects *X<sub>1</sub>* and *X<sub>2</sub>*. A product of *X<sub>1</sub>* and *X<sub>2</sub>* is an object *X* (often denoted *X<sub>1</sub>* × *X<sub>2</sub>*) together with a pair of morphisms π<sub>1</sub> : *X* → *X<sub>1</sub>*, π<sub>2</sub> : *X* → *X<sub>2</sub>* that satisfy the following universal property:
+>
+> * for every object Y and pair of morphisms f<sub>1</sub> : Y → *X<sub>1</sub>*, f<sub>2</sub>: Y → *X<sub>2</sub>* there exists a unique morphism f : Y → *X<sub>1</sub>* × *X<sub>2</sub>* such that the following diagram commutes:
+> >
+> > ![product](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/product.svg)
+>
+> The unique morphism f is called the product of morphisms f<sub>1</sub> and f<sub>2</sub> and is denoted < f<sub>1</sub>, f<sub>2</sub> >. The morphisms π<sub>1</sub> and  π<sub>2</sub> are called the canonical projections or projection morphisms.
+
+Now I am showing you the power of the `duality`. By simply flipping the arrow of the commutative diagram of the product, we can get the definition of the `coproduct`:
+> Let ***C*** be a category and let *X<sub>1</sub>* and *X<sub>2</sub>* be objects in that category. An object *P* is called the coproduct of these two objects, if there exist morphisms
+> > i<sub>1</sub>: *X<sub>1</sub>* → *P*
+>
+> and
+> > i<sub>2</sub>: *X<sub>2</sub>* → *P*
+>
+> satisfying a universal property: for any object *Y* and morphisms
+> > f<sub>1</sub>: *X<sub>1</sub>* → *Y*
+>
+> and
+> > f<sub>2</sub>: *X<sub>2</sub>* → *Y*
+>
+> there exists a unique morphism:
+> > f: *P* → *Y*
+>
+> such that f<sub>1</sub> = f ∘ i<sub>1</sub> and f<sub>2</sub> = f ∘ i<sub>2</sub>. That is, the following diagram commutes:
+> > ![product](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/coproduct.svg)
+
+And the example of the coproduct is the first way we combining the two lines, to be more general, in ***Set***, the coproduct of 2 sets is the disjoint union of them.
+
+The other thing that is the word `universal` implies is that the product and coproduct if they exist, there can be may of them, but all of them are unique up to unique isomorphisms. So that we can using 'the product' or 'the coproduct'.
+
+Now let's see an Typescript application of the categorical product. A pair of values, a two values list in Typescript, can be used to describe a product. Since the product can have 2 projections, then we can use Typescript to defining it:
+
+```Typescript
+function fst<T,U>([a, b]:[T, U]):T{
+    return a;
+}
+
+function fst<T,U>([a, b]:[T, U]):T{
+    return b;
+}
+```
+
+In Typescript, a value of `number` type can be turning into `boolean` by simply using `!!` operator. so there are also a function that can turning `number`:
+
+```Typescript
+const m = (a:number) => [a, !!a];
+```
+
+But for `number` and `boolean` only, their product is any value of the type `[number, boolean]`, because the following diagram commutes:
+
+![product of number and boolean](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/coproduct.svg)
+
+so the `id` and `a=>!!a` can be composed by using `m` and `fst` or `snd` respectively:
+
+```Typescript
+id(x) === fst(m(x));
+
+(a=>!!a)(x) === snd(m(x));
+```
+
+The product and coproduct seems simple, but their real power is that by combining them, like addition and multiplication, we can have ourselves the `Algebraic Data Types` (`ADT` for abbreviation) that can be used in everyday programming. For Typescript/Javascript programmers, a famous `ADT` lib is the
+[fantasy-land](https://github.com/fantasyland/fantasy-land). If you want to learn more about `ADT`, you can start by studing the `Curry-Howard isomorphism`.
 
 ### Functor
 
