@@ -267,7 +267,9 @@ Todo
 Todo
 
 ---
+
 ## Bibliography
+
 1. [Category theory for programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
 2. [TheCatster's video](https://www.youtube.com/user/TheCatsters/playlists)
 3. [Seven Sketches in Compositionality](http://math.mit.edu/~dspivak/teaching/sp18/7Sketches.pdf)
