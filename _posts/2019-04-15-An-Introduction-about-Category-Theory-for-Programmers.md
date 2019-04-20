@@ -198,11 +198,11 @@ And we just found ourselves a product! Here is the formal definition of the `cat
 >
 > The unique morphism f is called the product of morphisms f<sub>1</sub> and f<sub>2</sub> and is denoted < f<sub>1</sub>, f<sub>2</sub> >. The morphisms π<sub>1</sub> and  π<sub>2</sub> are called the canonical projections or projection morphisms.
 
-In our former example, which is the factors of 30, the 10, as the least common multiple of 2 and 5, is the product of 2 and 5. Because {2, 5, 10, 30} can form a divisibility poset and there is a unique morphism, which is *_ → _/3*, from 30 to 10 which factorize the both morphisms from 30 to 2 and 5.
+In our former example, which is the factors of 30, the 10, as the least common multiple of 2 and 5, is the product of 2 and 5. Because {2, 5, 10, 30} can form a divisibility poset and there is a unique morphism, which is *_ → _/3*, from 30 to 10 which factorizes both morphisms from 30 to 2 and to 5.
 
 ---
 
-The phrase `x factorize y` simply means that morphism y can be composed through x.
+The phrase `x factorizes y` simply means that morphism y can be composed through x.
 
 ---
 
