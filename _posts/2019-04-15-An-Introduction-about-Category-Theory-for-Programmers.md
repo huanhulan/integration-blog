@@ -198,6 +198,14 @@ And we just found ourselves a product! Here is the formal definition of the `cat
 >
 > The unique morphism f is called the product of morphisms f<sub>1</sub> and f<sub>2</sub> and is denoted < f<sub>1</sub>, f<sub>2</sub> >. The morphisms π<sub>1</sub> and  π<sub>2</sub> are called the canonical projections or projection morphisms.
 
+In our former example, which is the factors of 30, the 10, as the least common multiple of 2 and 5, is the product of 2 and 5. Because {2, 5, 10, 30} can form a divisibility poset and there is a unique morphism, which is *_ → _/3*, from 30 to 10 which factorize the both morphisms from 30 to 2 and 5.
+
+---
+
+The phrase `x factorize y` simply means that morphism y can be composed through x.
+
+---
+
 Now I am showing you the power of the `duality`. By simply flipping the arrow of the commutative diagram of the product, we can get the definition of the `coproduct`:
 > Let ***C*** be a category and let *X<sub>1</sub>* and *X<sub>2</sub>* be objects in that category. An object *P* is called the coproduct of these two objects, if there exist morphisms
 > > i<sub>1</sub>: *X<sub>1</sub>* → *P*
@@ -221,7 +229,7 @@ And the example of the coproduct is the first way we combining the two lines, to
 
 The other thing that is the word `universal` implies is that the product and coproduct if they exist, there can be may of them, but all of them are unique up to unique isomorphisms. So that we can using 'the product' or 'the coproduct'.
 
-Now let's see an Typescript application of the categorical product. A pair of values, a two values list in Typescript, can be used to describe a product. Since the product can have 2 projections, then we can use Typescript to defining it:
+Now let's see a Typescript application of the categorical product. A pair of values, a two values list in Typescript, can be used to describe a product. Since the product can have 2 projections, then we can use Typescript to defining it:
 
 ```Typescript
 function fst<T,U>([a, b]:[T, U]):T{
@@ -271,10 +279,11 @@ Todo
 ## Bibliography
 
 1. [Category theory for programmers](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
-2. [TheCatster's video](https://www.youtube.com/user/TheCatsters/playlists)
-3. [Seven Sketches in Compositionality](http://math.mit.edu/~dspivak/teaching/sp18/7Sketches.pdf)
-4. [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf)
-5. [What you needa know about Yoneda](https://www.cs.ox.ac.uk/jeremy.gibbons/publications/proyo.pdf)
+2. [Basic Category Theory](https://arxiv.org/pdf/1612.09375.pdf)
+3. [TheCatster's video](https://www.youtube.com/user/TheCatsters/playlists)
+4. [Seven Sketches in Compositionality](http://math.mit.edu/~dspivak/teaching/sp18/7Sketches.pdf)
+5. [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf)
+6. [What you needa know about Yoneda](https://www.cs.ox.ac.uk/jeremy.gibbons/publications/proyo.pdf)
 
 [1]:https://en.wikipedia.org/wiki/Barry_Mazur
 [2]:https://www.quora.com/What-is-the-purpose-of-identity-morphisms-in-category-theory
