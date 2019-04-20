@@ -241,7 +241,7 @@ const m = (a:number) => [a, !!a];
 
 But for `number` and `boolean` only, their product is any value of the type `[number, boolean]`, because the following diagram commutes:
 
-![product of number and boolean](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/coproduct.svg)
+![product of number and boolean](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/product_ts.svg)
 
 so the `id` and `a=>!!a` can be composed by using `m` and `fst` or `snd` respectively:
 
