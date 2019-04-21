@@ -33,7 +33,7 @@ So what is the category-theory about? It’s big insight is that we can figure o
 
 For mathematicians, the category theory provides a way to find a good (not the good, because there is no such thing) level of abstraction for thinking about mathematical structures. For us, as programmers and software engineers, we can use it to figure out things like: whether two functions can always be composed together, whether one data structure is alike to the other, whether the abstraction level of the code for a given question is good enough, or even how to confine and express side effects, etc.
 
-In the following chapters, I will try to explain basic concepts of the category theory intuitively and also show you the applications by using `Typescript` (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
+In the following chapters, I will try to explain basic concepts of the category theory intuitively and also give applications by using `Typescript` (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
 
 ## Basic Concepts of Category theory
 
@@ -43,7 +43,7 @@ The simplest formal definition of a category is:
 
 > A category ***C*** consists of
 >
->> * a collection *C*<sub>0</sub> of `objects`;
+>> * a collection *C*<sub>0</sub>, or ob(***C***), of `objects`;
 >>
 >> * for each pair *x*, *y* of objects, a collection *C*<sub>1</sub>(x, y) of `morphisms` from *x* to *y*;
 >>
@@ -170,9 +170,9 @@ But when we can't written a strict morphisms points out from the initial object,
 absurd :: Void -> a
 ```
 
-Back to game, you see that the definition of the initial and terminal object are simply inverting the arrows. This shows a very powerful aspect of the category theory: ***duality***. Which means we only need to prove a theorem or construct a category for one direction and by flipping every arrows in the original diagram we are guarantee to get the other in opposite category for free which really increases the productivity. The constructions in the opposite category are often prefixed with the world: “*co*”. I will use the products and co-products as an example.
+Back to game, We see that the definition of the initial and terminal object are simply inverting the arrows. This shows a very powerful aspect of the category theory: ***duality***. Which means we only need to prove a theorem or construct a category for one direction and by flipping every arrows in the original diagram we are guarantee to get the other in opposite category for free which really increases the productivity. The constructions in the opposite category are often prefixed with the world: “*co*”. I will use the products and co-products as an example.
 
-Imagine you have two lines, colored in red and blue like the picture down below. How many ways can you describe them all at the same time?
+Imagine there are two lines, colored in red and blue like the picture down below. How many ways can you describe them all at the same time?
 
 ![software style comparison](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/two_lines.png)
 
@@ -260,11 +260,53 @@ id(x) === fst(m(x));
 ```
 
 The product and coproduct seems simple, but their real power is that by combining them, like addition and multiplication, we can have ourselves the `Algebraic Data Types` (`ADT` for abbreviation) that can be used in everyday programming. For Typescript/Javascript programmers, a famous `ADT` lib is the
-[fantasy-land](https://github.com/fantasyland/fantasy-land). If you want to learn more about `ADT`, you can start by studing the `Curry-Howard isomorphism`.
+[fantasy-land](https://github.com/fantasyland/fantasy-land). For those who want to learn more about `ADT`, have a little understanding of the `Curry-Howard isomorphism` would be a great start.
 
 ### Functor
 
-Todo
+Now we have some understanding about objects and their mappings in a category. It's natural to ask can there be mappings between categories? The answer is yes and  and a map between categories is called a `functor`.
+
+Here is the definition of functor:
+
+> Let ***C*** and ***D*** be categories. A functor *F* : ***C*** → ***D*** consists of:
+>
+>> * a function: ob(***C***) → ob(***D***)
+>
+>>>>> written as: ***C*** ↦ *F*(***C***)
+>> * for each morphism f:C→C' in ***C***, a function:
+>
+>>>>>> ***C***(C,C') → ***D***(*F*(C),*F*(C'))
+>
+>>>>> written as: f ↦ *F*(f)
+>
+>>satisfying the following axioms:
+>
+>> * *F*( f' ◦ f ) = *F*(f') ◦ *F*(f) wherever f: C → C', f': C' → C'' in ***C***
+>
+>> * *F*(1<sub>C</sub>) = 1<sub>*F*(C)</sub> whenever C ∈ ***
+
+Just like the picture below, a functor guarantees us that it doesn't matter whether we go from `C` to `C'` by using f in ***C*** firstly then go through *F* to *F*C'' or we go to *F*C firstly then to *FC''* through *F*f.
+
+![product of number and boolean](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/functor.svg)
+
+So a functor preserves the structure of the original category but it also enables us with extra properties the target category has. Here I will show you a trivial example of the functor. In typescript, an generic typed array can be seen as *lifting* a value from the original type's category into the category of lists. So given a function:
+
+```Typescript
+function numberToString(n:number):string {
+    return `${n}`;
+}
+```
+
+and another function that preserve the structure:
+
+```Typescript
+function fmap(f:(number) => string, list: number[]): string[]{
+  const [head, ...res] = list;
+  return [f(head), ...fmap(f, res)];
+}
+```
+
+Then we can get a list of string from list of numbers by simply using a function that can goes from a number to a string. As you might noticed, this is exactly the rationale of the `Array.prototype.map`. And of course we can make our `fmap` more generic, I will leave that as an exercise to the readers so we can move on.
 
 ### Kleisli Category and Monad
 
