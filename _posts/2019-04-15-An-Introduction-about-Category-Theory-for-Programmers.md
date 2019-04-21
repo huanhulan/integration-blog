@@ -306,7 +306,7 @@ function fmap(f:(number) => string, list: number[]): string[]{
 }
 ```
 
-Then we can get a list of string from list of numbers by simply using a function that can goes from a number to a string. As you might noticed, this is exactly the rationale of the `Array.prototype.map`. And of course we can make our `fmap` more generic, I will leave that as an exercise to the readers so we can move on.
+Then we can get a list of string from list of numbers by simply using a function that can goes from a number to a string. As you might noticed, this is exactly the rationale of the `Array.prototype.map`. And of course we can make our `fmap` more generic, I will leave that as an exercise to the readers so that we can move on.
 
 ### Kleisli Category and Monad
 
