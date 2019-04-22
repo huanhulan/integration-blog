@@ -353,7 +353,7 @@ So formally, a natural transformation is:
 > * for all ob(***C***), a morphism:
 >
 >>> F(ob(***C***)) → G(ob(***C***)) ∈ ***D***
->>
+>
 > * for all morphisms f ∈ ***C***, the following naturality square commutes:
 >
 >>> ![natural square](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/natural_square.svg)
