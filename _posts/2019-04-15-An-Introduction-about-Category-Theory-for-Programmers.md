@@ -74,7 +74,9 @@ And we can also explaining a category visually by using commutative diagrams. It
 
 ![A category consists of 3 objects and their morphisms](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/3_objs_category.png)
 
-An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant: because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing, [but the concept of isomorphism relies for its definition on the concept of identity morphism][2]:
+A simplest category is an empty quiver, there are no arrow inside of it.
+
+An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant: because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing (soon we can see an identity that does something), [but the concept of isomorphism relies for its definition on the concept of identity morphism][2]:
 
 > Given objects *A* and *B* in a category ***C***, an isomorphism is a morphism ƒ: A → B that has an inverse, i.e. there exists a morphism g: B → A with ƒ∘g = 1<sub>B</sub> and g∘ƒ = 1<sub>A</sub>.
 
@@ -109,15 +111,41 @@ As you might know, the functions in the `set theory` can be a `surjection` (whic
 In a category whose objects are sets, if an morphism is both `epi` and `mono`, then we can tell that the morphism is `invertible` and the head and the tail objects of the arrow are `isomorphic`.
 
 An simple example of isomorphic can be found in the representations of natural numbers. Given infinite amount of storage, let's say:
-> **[]**, as an instance of array, can be treated as 0;
+> `[]`, as an instance of array, can be treated as 0;
 >
-> **[[]]** can be treated as 1;
+> `[[]]` can be treated as 1;
 >
-> **[[[]]]** can be treated as 2;
+> `[[[]]]` can be treated as 2;
 >
 > ...
 
 Then it's easy to prove that there is an isomorphism between all natural numbers and this square brackets kind of representation. Actually this kind of representation has a name -- `Curry-Howard isomorphism`.
+
+### Monoid
+
+Yet another deadly simple category. Despite of the definition of `monoid`s in `Group theory`, in category theory a monoid is just a category who has only one object along with a set of endo-morphisms that from and go back to itself.
+
+This simple definition is actually powerful: the only object it has can be seen as a set that contains all the possible combinations of values of a given monoid, and the multiplication rule of a monoid is automatically satisfied!
+
+The traditional way of defining a monoid in typescript is:
+
+```Typescript
+type Monoid<T> = {
+  mempty: T,
+  mappend: (first:T)=>(second:T)=>T
+}
+```
+
+and a trivial example is the list concatenation, since concatenating with an empty list is interchangeable:
+
+```Typescript
+const listConcatenation: Monoid<any[]> = {
+  mempty: [];
+  mappend: Array.prototype.concat
+}
+```
+
+And of course, for a fundamental idea that permeates category theory and the whole of mathematics, the story goes deeper than these few words. For those who are interested in it, there is a article, [Monoids on Steroids](https://bartoszmilewski.com/2017/02/09/monoids-on-steroids/), explains the very idea in great detail.
 
 ### Universal Properties and Universal Construction
 
@@ -271,19 +299,20 @@ Here is the definition of functor:
 > Let ***C*** and ***D*** be categories. A functor *F* : ***C*** → ***D*** consists of:
 >
 >> * a function: ob(***C***) → ob(***D***)
->
->>>>> written as: ***C*** ↦ *F*(***C***)
+>>>
+>>>> written as: ***C*** ↦ *F*(***C***)
+>>>
 >> * for each morphism f:C→C' in ***C***, a function:
->
->>>>>> ***C***(C,C') → ***D***(*F*(C),*F*(C'))
->
->>>>> written as: f ↦ *F*(f)
->
+>>
+>>>>> ***C***(C,C') → ***D***(*F*(C),*F*(C'))
+>>>>
+>>>> written as: f ↦ *F*(f)
+>>
 >>satisfying the following axioms:
->
->> * *F*( f' ◦ f ) = *F*(f') ◦ *F*(f) wherever f: C → C', f': C' → C'' in ***C***
->
->> * *F*(1<sub>C</sub>) = 1<sub>*F*(C)</sub> whenever C ∈ ***
+>>
+>>> * *F*( f' ◦ f ) = *F*(f') ◦ *F*(f) wherever f: C → C', f': C' → C'' in ***C***
+>>>
+>>> * *F*(1<sub>C</sub>) = 1<sub>*F*(C)</sub> whenever C ∈ ***
 
 Just like the picture below, a functor guarantees us that it doesn't matter whether we go from `C` to `C'` by using f in ***C*** firstly then go through *F* to *F*C'' or we go to *F*C firstly then to *FC''* through *F*f.
 
@@ -307,6 +336,35 @@ function fmap(f:(number) => string, list: number[]): string[]{
 ```
 
 Then we can get a list of string from list of numbers by simply using a function that can goes from a number to a string. As you might noticed, this is exactly the rationale of the `Array.prototype.map`. And of course we can make our `fmap` more generic, I will leave that as an exercise to the readers so that we can move on.
+
+### Natural Transformations
+
+Since functor can be used to compare categories, natural transformations can be used to compare functors. Since it adds another layer of abstraction, it's better for me to draw a diagram for you in the first place.
+
+In the diagram down below, there is a tiny category with only 2 objects and a morphism f between them called ***C***, and there is another category ***D*** that has the 2 images of ***C*** through 2 functors: *F* and *G*. But the images aren't the same. And a natural transformation is just a way of transforming *F*f into *G*f in a way that is natural, which means the morphisms: *F*C→*G*C and *F*C'→*G*C' are 2 morphisms that naturally exist in ***D***.
+
+![natural transformation](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/natural_transformation.svg)
+
+And what this diagram suggesting is that you can go through *F*f firstly the transform along *F*C'→*G*C' to *G*C', and it should be the same as you transform along *F*C→*G*C firstly and doing the *G*f afterwards. And that's what the natural transformation does, it does thing in this way for every instance of morphisms inside of the category ***C***.
+
+So formally, a natural transformation is:
+> Given functors *F*,*G*: ***C*** → ***D***, a natural transformation α: *F*=>*G* is given by:
+>
+> * for all ob(***C***), a morphism:
+>
+>>> F(ob(***C***)) → G(ob(***C***)) ∈ ***D***
+>>
+> * for all morphisms f ∈ ***C***, the following naturality square commutes:
+>
+>>> ![natural square](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/natural_square.svg)
+
+___
+The α<sub>C</sub> and α<sub>C'</sub> are the components of α on c and C and C' respectively.
+___
+
+There is a category of functors for each pair of categories, ***C*** and ***D***. Objects in this category are functors
+from ***C*** to ***D***, and morphisms are natural transformations between those
+functors. And there is a name for such category: 2-category, and category like I've given above they can be called 1-category since they have simple structure. The morphisms in a 2-category, which are natural transformations, are called 2-morphisms. Here is how thing go wild: every time you add another dimension to your categories, just like we add functor G and F, you get another level of thing between them, and that's why n-dimensional categories form a n+1 dimensional category and infinite-dimensional categories form infinite-dimensional category.
 
 ### Kleisli Category and Monad
 
