@@ -157,7 +157,7 @@ The factors of 30 can form following diagram:
 
 ![factors of 30](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/factors_of_30.png)
 
-Since the integers can be represented as ***sets*** in *set theory*, then the diagram above can be further interpreted into following diagrams by 30's prime factors (for simplicity, using {*x*, *y*} as cartesian product *x*×*y*):
+Since the integers can be represented as ***sets*** in *set theory*, then the diagram above can be further interpreted into following diagrams by 30's prime factors (for simplicity, using {*x*, *y*} as cartesian product: *x*×*y*):
 
 ![factors of 30 in set](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/factors_of_30_1.png)
 
@@ -318,7 +318,38 @@ Just like the picture below, a functor guarantees us that it doesn't matter whet
 
 ![product of number and boolean](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/functor.svg)
 
-So a functor preserves the structure of the original category but it also enables us with extra properties the target category has. Here I will show you a trivial example of the functor. In typescript, an generic typed array can be seen as *lifting* a value from the original type's category into the category of lists. So given a function:
+So a functor preserves the structure of the original category but it also enables us with extra properties the target category has. Here I will show you a trivial example of the functor. In typescript, `Higher Kinded Types` like functor type would be awkward to write, so we end up with [a monster like](https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-415694540):
+
+```Typescript
+/*
+* TRTL, the codes down below is just:
+*   Fa->(a->b)->Fb
+* in Haskell
+*/
+declare const index: unique symbol;
+
+// A type for representing type variables
+type _<N extends number = 0> = { [index]: N };
+
+// Type application (substitutes type variables with types)
+type $<T, S, N extends number = 0> =
+  T extends _<N> ? S :
+  T extends undefined | null | boolean | string | number ? T :
+  T extends Array<infer A> ? $Array<A, S, N> :
+  T extends (x: infer I) => infer O ? (x: $<I, S, N>) => $<O, S, N> :
+  T extends object ? { [K in keyof T]: $<T[K], S, N> } :
+  T;
+
+interface $Array<T, S, N extends number> extends Array<$<T, S, N>> {}
+
+// Let's declare some familiar type classes...
+
+interface Functor<F> {
+  map: <A, B>(fa: $<F, A>, f: (a: A) => B) => $<F, B>;
+}
+```
+
+But I don't think this is an appropriate way to define a functor type, hopefully the [Draft #30790](https://github.com/Microsoft/TypeScript/pull/30790) can pass in a near future. And since for this article we are focusing on the category theory, so I would do things in a simpler way, given a function:
 
 ```Typescript
 function numberToString(n:number):string {
@@ -336,6 +367,12 @@ function fmap(f:(number) => string, list: number[]): string[]{
 ```
 
 Then we can get a list of string from list of numbers by simply using a function that can goes from a number to a string. As you might noticed, this is exactly the rationale of the `Array.prototype.map`. And of course we can make our `fmap` more generic, I will leave that as an exercise to the readers so that we can move on.
+
+Another interesting functor that I want to mention in here is the `hom functor`. Let's fix one object A in a category ***C***, and pick another object X in ***C***, then the morphisms between A and X can form a set `Hom(A, X)`. So if we vary X while keeping A fixed, we can get many sets, which means that we get a mapping between our category ***C*** and ***Set***. The functor which we just described can be written as: `Hom(A, _)`, with the dash serving as the placeholder for the argument.
+
+![hom functor](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/hom_functor.svg)
+
+As you can see in the picture above, the morphism g in ***C*** is lifted into Hom(A, g): Hom(A, X) → Hom(A, Y), and f and g∘f are just members of the corresponding sets.
 
 ### Natural Transformations
 
@@ -364,7 +401,22 @@ ___
 
 There is a category of functors for each pair of categories, ***C*** and ***D***. Objects in this category are functors
 from ***C*** to ***D***, and morphisms are natural transformations between those
-functors. And there is a name for such category: 2-category, and category like I've given above they can be called 1-category since they have simple structure. The morphisms in a 2-category, which are natural transformations, are called 2-morphisms. Here is how thing go wild: every time you add another dimension to your categories, just like we add functor G and F, you get another level of thing between them, and that's why n-dimensional categories form a n+1 dimensional category and infinite-dimensional categories form infinite-dimensional category.
+functors. And there is a name for such category: 2-category, and category like I've given above they can be called 1-category since they have simple structure. The morphisms in a 2-category, which are natural transformations, are called 2-morphisms.
+
+And here is how thing go crazy: every time you add another dimension to your categories just like we add functor G and F, you get another level of thing between them, and that's why n-dimensional categories form a n+1 dimensional category and infinite-dimensional categories form infinite-dimensional category.
+
+Remember the notion of the `hom-set` in the last chapter, since the ***Set*** in contains all the sets, so for a category ***C*** there can be many functors that mapping it to the ***Set***. And the natural transformatiohttps://home.cern/science/accelerators/large-hadron-colliderns between them and the hom functors derive one of the 3 pillars of the category theory -- the `representable functor` and `Yoneda's Lemma`. Basically the intuition behind [Yoneda's Lemma](https://www.cs.ox.ac.uk/jeremy.gibbons/publications/proyo.pdf) is supposed to be that one can characterize an object by probing it via its interactions with all other objects, and this is exactly the rationale behind the [LHC](https://home.cern/science/accelerators/large-hadron-collider) -- because particle physicist can figure out what a new particle is by smashing them with the particles that they've been familiar with!
+
+![particles](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/cloud_chamber.png)
+
+---
+For those who are interested, the other two pillars of the category theory are:
+
+* `adjunctions`, which would be too big to be covered in this article.
+
+* and `Limit & colimit` which is strong related to `product & coproduct` example we just talked about.
+
+---
 
 ### Kleisli Category and Monad
 
