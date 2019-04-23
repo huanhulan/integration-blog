@@ -399,6 +399,8 @@ ___
 The α<sub>C</sub> and α<sub>C'</sub> are the components of α on c and C and C' respectively.
 ___
 
+This definition is actually quite strong, because since it works for all ob(***C***) which means that a natural transformation can not ever look at the specific object in ***C*** and can not create new objects for ***C*** neither.
+
 There is a category of functors for each pair of categories, ***C*** and ***D***. Objects in this category are functors
 from ***C*** to ***D***, and morphisms are natural transformations between those
 functors. And there is a name for such category: 2-category, and category like I've given above they can be called 1-category since they have simple structure. The morphisms in a 2-category, which are natural transformations, are called 2-morphisms.
