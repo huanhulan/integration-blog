@@ -89,7 +89,7 @@ function identity<T>(arg: T): T {
 ```
 
 ***
-Note that this is not exactly a categorical identity morphism, because:
+Noting that this is not exactly a categorical identity morphism, because:
 
 ```Typescript
 const nan = NaN;
