@@ -11,7 +11,7 @@
 >> -- <cite>[Barry Mazur][1]</cite>
 
 ---
-## Introduction
+## 1. Introduction
 
 We, as homo sapiens, have been solving problems by decomposing-recomposing things since the beginning of our civilization. From chiseling bones into arrows to building space shuttles from scratch sending human into space. We do things this way because of our minds are limited, we have to chop huge information down apart into smaller parts that an individual's mind can process biologically, and then recomposing them back to get full picture of the original information.
 
@@ -35,9 +35,9 @@ For mathematicians, the category theory provides a way to find a good (not the g
 
 In the following chapters, I will try to explain basic concepts of the category theory intuitively and also give applications by using `Typescript` (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
 
-## Basic Concepts of Category theory
+## 2. Basic Concepts of Category theory
 
-### Objects and Arrows
+### 2.1 Objects and Arrows
 
 The simplest formal definition of a category is:
 
@@ -121,7 +121,7 @@ An simple example of isomorphic can be found in the representations of natural n
 
 Then it's easy to prove that there is an isomorphism between all natural numbers and this square brackets kind of representation. Actually this kind of representation has a name -- `Curry-Howard isomorphism`.
 
-### Monoid
+###  2.2 Monoid
 
 Yet another deadly simple category. Despite of the definition of `monoid`s in `Group theory`, in category theory a monoid is just a category who has only one object along with a set of endo-morphisms that from and go back to itself.
 
@@ -147,7 +147,7 @@ const listConcatenation: Monoid<any[]> = {
 
 And of course, for a fundamental idea that permeates category theory and the whole of mathematics, the story goes deeper than these few words. For those who are interested in it, there is a article, [Monoids on Steroids](https://bartoszmilewski.com/2017/02/09/monoids-on-steroids/), explains the very idea in great detail.
 
-### Universal Properties and Universal Construction
+###  2.3 Universal Properties and Universal Construction
 
 As we mentioned above, category theory give us ability to study a object in terms of its relationships with the others. One way of achieving this is by finding *universal properties*.
 
@@ -290,7 +290,7 @@ id(x) === fst(m(x));
 The product and coproduct seems simple, but their real power is that by combining them, like addition and multiplication, we can have ourselves the `Algebraic Data Types` (`ADT` for abbreviation) that can be used in everyday programming. For Typescript/Javascript programmers, a famous `ADT` lib is the
 [fantasy-land](https://github.com/fantasyland/fantasy-land). For those who want to learn more about `ADT`, have a little understanding of the `Curry-Howard isomorphism` would be a great start.
 
-### Functor
+### 2.4 Functor
 
 Now we have some understanding about objects and their mappings in a category. It's natural to ask can there be mappings between categories? The answer is yes and  and a map between categories is called a `functor`.
 
@@ -318,7 +318,7 @@ Just like the picture below, a functor guarantees us that it doesn't matter whet
 
 ![product of number and boolean](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/functor.svg)
 
-So a functor preserves the structure of the original category but it also enables us with extra properties the target category has. Here I will show you a trivial example of the functor. In typescript, `Higher Kinded Types` like functor type would be awkward to write, so we end up with [a monster like](https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-415694540):
+So a functor preserves the structure of the original category but it also enables us with extra properties the target category has. Here I will show you a trivial example of the functor. In typescript, `Higher Kinded Types` like functor type would be awkward to write, so we end up with a [monstrous definitions](https://github.com/Microsoft/TypeScript/issues/1213#issuecomment-415694540) like this:
 
 ```Typescript
 /*
@@ -374,7 +374,7 @@ Another interesting functor that I want to mention in here is the `hom functor`.
 
 As you can see in the picture above, the morphism g in ***C*** is lifted into Hom(A, g): Hom(A, X) → Hom(A, Y), and f and g∘f are just members of the corresponding sets.
 
-### Natural Transformations
+###  2.5  Natural Transformations
 
 Since functor can be used to compare categories, natural transformations can be used to compare functors. Since it adds another layer of abstraction, it's better for me to draw a diagram for you in the first place.
 
@@ -405,7 +405,7 @@ functors. And there is a name for such category: 2-category, and category like I
 
 And here is how thing go crazy: every time you add another dimension to your categories just like we add functor G and F, you get another level of thing between them, and that's why n-dimensional categories form a n+1 dimensional category and infinite-dimensional categories form infinite-dimensional category.
 
-Remember the notion of the `hom-set` in the last chapter, since the ***Set*** in contains all the sets, so for a category ***C*** there can be many functors that mapping it to the ***Set***. And the natural transformatiohttps://home.cern/science/accelerators/large-hadron-colliderns between them and the hom functors derive one of the 3 pillars of the category theory -- the `representable functor` and `Yoneda's Lemma`. Basically the intuition behind [Yoneda's Lemma](https://www.cs.ox.ac.uk/jeremy.gibbons/publications/proyo.pdf) is supposed to be that one can characterize an object by probing it via its interactions with all other objects, and this is exactly the rationale behind the [LHC](https://home.cern/science/accelerators/large-hadron-collider) -- because particle physicist can figure out what a new particle is by smashing them with the particles that they've been familiar with!
+Remember the notion of the `hom set` in the last chapter, since the ***Set*** contains all sets in the universe, so for a category ***C*** there can be many functors that mapping into the ***Set***. And the natural transformation between them and the `hom functor`s derive one of the 3 pillars of the category theory -- the `representable functor` and `Yoneda's Lemma`. Basically the intuition behind [Yoneda's Lemma](https://www.cs.ox.ac.uk/jeremy.gibbons/publications/proyo.pdf) is supposed to be that one can characterize an object by probing it via its interactions with all other object. This sounds pretty much like the [LHC](https://home.cern/science/accelerators/large-hadron-collider) -- because particle physicist can figure out what a new particle is by smashing them with the particles that they've been familiar with!
 
 ![particles](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/cloud_chamber.png)
 
@@ -418,11 +418,11 @@ For those who are interested, the other two pillars of the category theory are:
 
 ---
 
-### Kleisli Category and Monad
+### 2.6 Kleisli Category and Monad
 
 Todo
 
-## Conclusion
+## 3. Conclusion
 
 Todo
 
