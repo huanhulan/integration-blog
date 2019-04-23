@@ -349,7 +349,7 @@ interface Functor<F> {
 }
 ```
 
-But I don't think this is an appropriate way to define a functor type, hopefully the [Draft #30790](https://github.com/Microsoft/TypeScript/pull/30790) can pass in a near future. And since for this article we are focusing on the category theory, so I would do things in a simpler way, given a function:
+But I don't think this is an appropriate way to define a functor type, hopefully this issue would be resolved in a near future. And since for this article we are mainly focusing on the category theory, so I'd rather get the show case done in a simpler way. Given a function:
 
 ```Typescript
 function numberToString(n:number):string {
@@ -366,7 +366,7 @@ function fmap(f:(number) => string, list: number[]): string[]{
 }
 ```
 
-Then we can get a list of string from list of numbers by simply using a function that can goes from a number to a string. As you might noticed, this is exactly the rationale of the `Array.prototype.map`. And of course we can make our `fmap` more generic, I will leave that as an exercise to the readers so that we can move on.
+Then we can get a list of string from list of numbers by simply using a function that can goes from a number to a string. As you may notice, this is exactly the rationale of the `Array.prototype.map`. And of course we can make our `fmap` more generic, I will leave that as an exercise to the readers so that we can move on.
 
 Another interesting functor that I want to mention in here is the `hom functor`. Let's fix one object A in a category ***C***, and pick another object X in ***C***, then the morphisms between A and X can form a set `Hom(A, X)`. So if we vary X while keeping A fixed, we can get many sets, which means that we get a mapping between our category ***C*** and ***Set***. The functor which we just described can be written as: `Hom(A, _)`, with the dash serving as the placeholder for the argument.
 
