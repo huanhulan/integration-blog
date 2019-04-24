@@ -33,7 +33,7 @@ So what is the category-theory about? It’s big insight is that we can figure o
 
 For mathematicians, the category theory provides a way to find a good (not the good, because there is no such thing) level of abstraction for thinking about mathematical structures. For us, as programmers and software engineers, we can use it to figure out things like: whether two functions can always be composed together, whether one data structure is alike to the other, whether the abstraction level of the code for a given question is good enough, or even how to confine and express side effects, etc.
 
-In the following chapters, I will try to explain basic concepts of the category theory intuitively and also give applications by using `Typescript` (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). Don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
+In the following chapters, I will try to explain basic concepts of the category theory intuitively and also give applications by using `Typescript` (Because our team are mainly focusing on front-end, even thought I'd love to use Haskell notations because it's much terser). By intuitively, I mean that to introduce some of simple but profound ideas of the category theory while don't go too far so most of the readers can easily understand what I'm saying. So don't fear the math, it's deadly simple. Now make yourself a coffee and let's begin our tour.
 
 ## 2. Basic Concepts of Category theory
 
