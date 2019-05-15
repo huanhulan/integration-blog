@@ -419,11 +419,14 @@ Remember in the chapter 2.3, we have `1`, `0`, `×` and `+`, it's natural to ask
 
 ```
 sums:
-X + 0 ≅ X X + Y ≅ Y + X
+X + 0 ≅ X
+X + Y ≅ Y + X
 (X + Y) + Z ≅ X + (Y + Z)
 
 products:
-X × 1 ≅ X 0 × X ≅ 0 X × Y ≅ Y × X
+X × 1 ≅ X
+0 × X ≅ 0
+X × Y ≅ Y × X
 (X × Y) × Z ≅ X × (Y × Z)
 
 product over sum:
@@ -469,8 +472,8 @@ function toTree<a>(roses: RoseTree<a>[]): Tree<a> {
   const [rose, ...rest] = roses;
   return {
     node: rose.left,
-    right: rose.right ? toTree([rose.right]) : null,
-    left: toTree(rest),
+    left: rose.right ? toTree([rose.right]) : null,
+    right: toTree(rest),
   };
 }
 
@@ -498,9 +501,9 @@ function toForest<a>(tree: Tree<a>): RoseTree<a>[] {
 And then checks the equivalence of the elements between the input and output structures recursively, to get an indirect proof that:
 `toTree · toForest = id` and `toForest · toTree = id`.
 
-But there are flaws only by writing tests for this case! Because there are infinite types since the definitions are generic!
+But there are flaws by only writing tests for this case! Because there are infinite types since the definitions are generic!
 
-The other way around is by writing algebra proofs using the so-called `Curry-Howard isomorphism`, which of course derives from category theory. More information about the case can be found in this paper: [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf).
+The other way around is by writing algebra proofs using the laws like sums and products but more deeply related to category theory. More information about the case can be found in this paper: [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf).
 
 
 ### 2.6 Kleisli Category and Monad
