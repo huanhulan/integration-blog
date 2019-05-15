@@ -66,22 +66,22 @@ TLTR, intuitively, a category can be seen as quiver filled with arrows and objec
 
 1. each arrow has two objects on their head and tail, each objects can be seen as a ***set***,
 2. and there are special arrows that the head and tail objects are the same,
-3. and there can be empty arrows means that there is no relationships between the arrow's head and its tail,
+3. and there can be empty arrows means that there are no relationships between the arrow's head and its tail,
 4. if one arrow's head match with the others tail, then there must be another arrow in the quiver which is the two arrow combined together.
 5. Arrows can represent `any binary relationship`, from the ≤ relationship in natural numbers to description like “_ is _'s grand parents”.
 
-And we can also explaining a category visually by using commutative diagrams. It's also deadly simple, just drawing all the information into a paper: objects as dots, morphisms goes between the dots.
+And we can also explain a category visually by using commutative diagrams. It's also deadly simple, just drawing all the information into a paper: objects as dots, morphisms goes between the dots.
 
 ![A category consists of 3 objects and their morphisms](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/3_objs_category.png)
 
 A simplest category is an empty quiver, there are no arrow inside of it.
 
-As you might know, the functions in the `set theory` can be a `surjection` (which simply means that for every elements in the co-domain there is a corresponding element in the domain), or an `injection` (different elements in the domain would be mapping to different element in the co-domain) or can be both at the same time. In category theory, the morphisms has similar properties to `surjective` and `injective` are called `epimorphism` and `monomorphism`:
+As you might know, the functions in the `set theory` can be a `surjection` (which simply means that for every element in the co-domain there is a corresponding element in the domain), or an `injection` (different elements in the domain would be mapping to different element in the co-domain) or can be both at the same time. In category theory, the morphisms has similar properties to `surjective` and `injective` are called `epimorphism` and `monomorphism`:
 
 * An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
     > *g*<sub>1</sub> · *f* = *g*<sub>2</sub> · *f* ⇒ *g*<sub>1</sub> = *g*<sub>2</sub>
 
-* An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
+* A monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
     > *f* · *μ*<sub>1</sub> = *f* · *μ*<sub>2</sub> ⇒ *μ*<sub>1</sub> = *μ*<sub>2</sub>
 
 An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant: because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing (soon we can see an identity that does something), [but the concept of isomorphism relies for its definition on the concept of identity morphism][2]:
@@ -138,9 +138,9 @@ And of course, for a fundamental idea that permeates category theory and the who
 
 ###  2.3 Universal Properties and Universal Construction
 
-As we mentioned above, category theory give us ability to study a object in terms of its relationships with the others. One way of achieving this is by finding *universal properties*.
+As we mentioned above, category theory give us ability to study an object in terms of its relationships with the others. One way of achieving this is by finding *universal properties*.
 
-Here I will using a brilliant example from [Eugenia Chen][4]'s wonderful talk -- [Category Theory in Life][5].
+Here I will use a brilliant example from [Eugenia Chen][4]'s wonderful talk -- [Category Theory in Life][5].
 
 The factors of 30 can form following diagram:
 
@@ -157,7 +157,7 @@ The same methodology can be applied to any other 'prime factors', take 'clean', 
 So why? Math is tool to answer 'why did this happen?', and the category theory is the tool to answer 'why math happens?'. The diagrams above holds because of the existence of the prime factors. So by combining them, we can get other factors, all the way down, finally we got ourselves a *partial ordered set*. And the reason why the second one can use the same logic is because of the isomorphism between these dual concepts:
 > clean → dirty ≌ performance → slow ≌ architect → no-architect
 
-So the similarity between the diagrams kinda explain the word 'universal'. Now I will formally introduce two basic concept of *universal properties*.
+So the similarity between the diagrams kinda explain the word 'universal'. Now I will formally introduce two basic concepts of *universal properties*.
 
 First, `initial object`:
 > An initial object in a category ***C*** is a object *I* such that for all object *X* there is a unique morphism:
@@ -171,7 +171,7 @@ In the diagrams above, the initial objects are 30, {2,3,5} and 'clean performanc
 
 But a category may have many initial/terminal objects if it has. But all of them, initial/terminal objects, are unique up to a unique isomorphism. So in some extent, we can use the word 'the' in the definition of the initial/terminal object.
 
-Further more, in the category of sets (I will denote it as ***Set*** in follows chapters, be careful it starts with the upper case 'S'), the initial object is the empty set:∅, because ∅ is subset of every set. And the terminal object in ***Set*** are the the singleton set (again, singleton is up to isomorphism). And that's why we can denote `initial objects` as `0` and  `terminal objects` as `1`.
+Further more, in the category of sets (I will denote it as ***Set*** in follows chapters, be careful it starts with the upper case 'S'), the initial object is the empty set:∅, because ∅ is subset of every set. And the terminal object in ***Set*** are the singleton set (again, singleton is up to isomorphism). And that's why we can denote `initial objects` as `0` and  `terminal objects` as `1`.
 
 Since we said that types can be seen as sets, so morphisms points to the terminal object can be written in Typescript as:
 
@@ -181,7 +181,7 @@ function unit(arg:any){
 }
 ```
 
-But when we can't written a strict morphisms points out from the initial object, because theoretically, empty set can't have members, so any morphism points out from empty set is the empty set itself. But *void*, *null* and *undefined* are all implemented in javascript, so they have members which means they are not empty at all. That's why I will using `Haskell` notation for the morphism called *absurd*, since the `Void` in Haskell` corresponds to the concept of empty set:
+But when we can't written a strict morphisms points out from the initial object, because theoretically, empty set can't have members, so any morphism points out from empty set is the empty set itself. But *void*, *null* and *undefined* are all implemented in javascript, so they have members which means they are not empty at all. That's why I will use `Haskell` notation for the morphism called *absurd*, since the `Void` in Haskell` corresponds to the concept of empty set:
 
 ```Haskell
 absurd :: Void -> a
@@ -197,11 +197,11 @@ Of course the most intuitive way is just like what I said, simply just putting t
 
 ![two lines together](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/two_lines_in_disjoint_union.png)
 
-The another way of thinking comes trickier, it's critical insight is that the 1-dimensional lines can be seen as **projections from higher dimensions**. So the two lines above, can be seen as two projections from one single 2-dimensional object using 2-different color of flashlights illuminating at different angles. But this 2-dimensional object can have many shapes, for example, it can be a square whose width and height is equal to the lengths of 2 lines, or a square has the same size but has a hole in its center, or it can be an ellipse whose axis is equal to the lengths of 2 lines, etc.
+The another way of thinking comes trickier, its critical insight is that the 1-dimensional lines can be seen as **projections from higher dimensions**. So the two lines above, can be seen as two projections from one single 2-dimensional object using 2-different color of flashlights illuminating at different angles. But this 2-dimensional object can have many shapes, for example, it can be a square whose width and height is equal to the lengths of 2 lines, or a square has the same size but has a hole in its center, or it can be an ellipse whose axis is equal to the lengths of 2 lines, etc.
 
 So which one is the best one? The best one should be the one that doesn't involve extra information. So neither the ellipse nor the square that has a hole meets this requirement. And this is true meaning of the `universal`.
 
-Now let's using a commutative diagram to describe the way we just used to find the best 2-dimensional object which is a square whose width and height is equal to the lengths of 2 lines. As we can see all 3 objects can have projections into the two lines, but 2 of them have 2 projections, which can be seen as cutting of extra information, into the best one we just found.
+Now let us use a commutative diagram to describe the way we just used to find the best 2-dimensional object which is a square whose width and height is equal to the lengths of 2 lines. As we can see all 3 objects can have projections into the two lines, but 2 of them have 2 projections, which can be seen as cutting of extra information, into the best one we just found.
 
 ![relationships between lines and their higher dimension sources](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/product_example.svg)
 
@@ -246,7 +246,7 @@ Now I am showing you the power of the `duality`. By simply flipping the arrow of
 
 And the example of the coproduct is the first way we combining the two lines, to be more general, in ***Set***, the coproduct of 2 sets is the disjoint union of them.
 
-The other thing that is the word `universal` implies is that the product and coproduct if they exist, there can be may of them, but all of them are unique up to unique isomorphisms. So that we can using 'the product' or 'the coproduct'.
+The other thing that is the word `universal` implies is that the product and coproduct if they exist, there can be may of them, but all of them are unique up to unique isomorphisms. So that we can use 'the product' or 'the coproduct'.
 
 Now let's see a Typescript application of the categorical product. A pair of values, a two values list in Typescript, can be used to describe a product. Since the product can have 2 projections, then we can use Typescript to defining it:
 
@@ -260,7 +260,7 @@ function fst<T,U>([a, b]:[T, U]):T{
 }
 ```
 
-In Typescript, a value of `number` type can be turning into `boolean` by simply using `!!` operator. so there are also a function that can turning `number`:
+In Typescript, a value of `number` type can be turning into `boolean` by simply using `!!` operator. So there are also a function that can turning `number`:
 
 ```Typescript
 const m = (a:number) => [a, !!a];
@@ -393,7 +393,7 @@ In the diagram down below, there is a tiny category with only 2 objects and a mo
 
 ![natural transformation](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/natural_transformation.svg)
 
-And what this diagram suggesting is that you can go through *F*f firstly the transform along *F*C'→*G*C' to *G*C', and it should be the same as you transform along *F*C→*G*C firstly and doing the *G*f afterwards. And that's what the natural transformation does, it does thing in this way for every instance of morphisms inside of the category ***C***.
+And what this diagram suggesting is that you can go through *F*f firstly the transform along *F*C'→*G*C' to *G*C', and it should be the same as you transform along *F*C→*G*C firstly and doing the *G*f afterwards. So that's what the natural transformation does, it does thing in this way for every instance of morphisms inside of the category ***C***.
 
 So formally, a natural transformation is:
 > Given functors *F*,*G*: ***C*** → ***D***, a natural transformation α: *F*⇒*G* is given by:
