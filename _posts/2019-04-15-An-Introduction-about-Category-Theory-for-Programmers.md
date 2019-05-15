@@ -76,9 +76,19 @@ And we can also explaining a category visually by using commutative diagrams. It
 
 A simplest category is an empty quiver, there are no arrow inside of it.
 
+As you might know, the functions in the `set theory` can be a `surjection` (which simply means that for every elements in the co-domain there is a corresponding element in the domain), or an `injection` (different elements in the domain would be mapping to different element in the co-domain) or can be both at the same time. In category theory, the morphisms has similar properties to `surjective` and `injective` are called `epimorphism` and `monomorphism`:
+
+* An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
+    > *g*<sub>1</sub> · *f* = *g*<sub>2</sub> · *f* ⇒ *g*<sub>1</sub> = *g*<sub>2</sub>
+
+* An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
+    > *f* · *μ*<sub>1</sub> = *f* · *μ*<sub>2</sub> ⇒ *μ*<sub>1</sub> = *μ*<sub>2</sub>
+
 An agile reader might ask: Why do we need identity? The answer is that it's like 0 when studying addition, which does nothing but significant: because once you have it, you can do algebras. The identity morphisms in category theory usually does nothing (soon we can see an identity that does something), [but the concept of isomorphism relies for its definition on the concept of identity morphism][2]:
 
 > Given objects *A* and *B* in a category ***C***, an isomorphism is a morphism ƒ: A → B that has an inverse, i.e. there exists a morphism g: B → A with ƒ∘g = 1<sub>B</sub> and g∘ƒ = 1<sub>A</sub>.
+
+The arrows `isomorphic` to each other are denoted by the symbol `≅`.
 
 In a programming language, Typescript in our case, we can treat types as objects(not only the type that are predefined in Typescript, but also your own classes), and morphisms as function that mapping between types. But one thing to notice that, functions should be total, which means given one specific input value, there can be only one determined effect, which means they are pure. So the type notation for the identity in Typescript morphism can be written as:
 
@@ -355,6 +365,26 @@ Another interesting functor that I want to mention in here is the `hom functor`.
 
 As you can see in the picture above, the morphism g in ***C*** is lifted into Hom(A, g): Hom(A, X) → Hom(A, Y), and f and g∘f are just members of the corresponding sets.
 
+Here I want to talk something about isomorphic properties of the functor.
+
+Needless to say, given an isomorphism f: A ≅ B in category ***C*** and a functor F: ***C*** → ***D***, of course we have: A ≅ B ⇒ *F* A ≅ *F* B.
+
+We have defined isomorphism of objects, but what about isomorphism of functors? For functor category, no new definition is needed. But the interesting case is the isomorphism between categories ***C*** ≅ ***D***, the witness is a functor.
+
+Since we have the hom functor. Then in the perspective of `set theory`, for each function: Hom(A, B) in ***C***, a functor *F*: ***C*** → ***D*** can be seen as a function: F: Hom(A, B)→Hom(*F*A, *F*B). So for functors, function properties like `surjective` and `injective` are called `fullness` and `faithfulness`.
+
+The functor *F* is `full` when every such function is `surjective`: for every arrow g : ***D***(*F* A, *F*B), there is an arrow f : ***C***(A, B) with g = *F*f .
+
+The functor F is `faithful` if this function between hom-sets is `injective`: for every pair of arrows f<sub>1</sub>, f<sub>2</sub> : ***C***(A, B), the equality *F*f<sub>1</sub> = *F*f<sub>2</sub> implies f<sub>1</sub> = f<sub>2</sub>.
+
+And for a functor *F* that is `fully faithful`, *F* is a bijection on the hom-sets: *F* : C(A, B) ≅ D(*F* A, *F* B).
+
+So a fully faithful functor *F* reflect ≅: *F* A ≅ *F* B ⇒ A ≅ B. Further more a fully faithful functor has properties: *F* A ≅ *F* B ⇔ A ≅ B
+
+Then the *F* is invertible, if we called the inverse of *F* as *G*, then: f = *G*g ⇐⇒ *F* f = g.
+
+Then the notion of equivalence of categories comes as: *G*◦*F* ≅ Id<sub>***C***</sub> and *F*◦*G* ≅ Id<sub>***D***</sub>. And since functor preserve relations.
+
 ###  2.5  Natural Transformations
 
 Since functor can be used to compare categories, natural transformations can be used to compare functors. Since it adds another layer of abstraction, it's better for me to draw a diagram for you in the first place.
@@ -366,7 +396,7 @@ In the diagram down below, there is a tiny category with only 2 objects and a mo
 And what this diagram suggesting is that you can go through *F*f firstly the transform along *F*C'→*G*C' to *G*C', and it should be the same as you transform along *F*C→*G*C firstly and doing the *G*f afterwards. And that's what the natural transformation does, it does thing in this way for every instance of morphisms inside of the category ***C***.
 
 So formally, a natural transformation is:
-> Given functors *F*,*G*: ***C*** → ***D***, a natural transformation α: *F*=>*G* is given by:
+> Given functors *F*,*G*: ***C*** → ***D***, a natural transformation α: *F*⇒*G* is given by:
 >
 > * for all ob(***C***), a morphism:
 >
@@ -401,21 +431,11 @@ For those who are interested, the other two pillars of the category theory are:
 
 ---
 
-### 2.5 Isomorphism
+### 2.5 The importance of isomorphism
 
-As you might know, the functions in the `set theory` can be a `surjection` (which simply means that for every elements in the co-domain there is a corresponding element in the domain), or an `injection` (different elements in the domain would be mapping to different element in the co-domain) or can be both at the same time. In category theory, the morphisms has similar properties called `epimorphism` and `monomorphism`:
+Isomorphisms help us to reason our code about `what`: the relationships that an object has with other objects, instead of `how`: the implementation.
 
-* An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
-    > *g*<sub>1</sub> · *f* = *g*<sub>2</sub> · *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
-
-* An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
-    > *f* · *μ*<sub>1</sub> = *f* · *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>
-
-In a category whose objects are sets, if an morphism is both `epi` and `mono`, then we can tell that the morphism is `invertible` and the head and the tail objects of the arrow are `isomorphic`, which denoted by the symbol `≅`.
-
-An isomorphism means two things are not strictly equal, but alike to each other in some way. Which help us to reason our code about `what`: the relationships that an object has with other objects, instead of `how`: the implementation.
-
-Remember in the chapter 2.3, we have `1`, `0`, `×` and `+`, it's natural to ask do we have the laws from high-school algebra? The answer is yes:
+Remember back in the chapter 2.3, we have `1`, `0`, `×` and `+`, it's natural to ask do we have the laws from high-school algebra? The answer is yes:
 
 ```
 sums:
@@ -433,7 +453,7 @@ product over sum:
 (X + Y) × Z ≅ (X × Z) + (Y × Z)
 ```
 
-An simple example of isomorphic can be found in the representations of natural numbers. Given infinite amount of storage, let's say:
+An simple example of the usage of isomorphic can be found in the representations of natural numbers. Given infinite amount of storage, let's say:
 > `[]`, as an instance of array, can be treated as 0, and vise-versa;
 >
 > `[[]]` can be treated as 1;
@@ -504,7 +524,6 @@ And then checks the equivalence of the elements between the input and output str
 But there are flaws by only writing tests for this case! Because there are infinite types since the definitions are generic!
 
 The other way around is by writing algebra proofs using the laws like sums and products but more deeply related to category theory. More information about the case can be found in this paper: [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf).
-
 
 ### 2.6 Kleisli Category and Monad
 
