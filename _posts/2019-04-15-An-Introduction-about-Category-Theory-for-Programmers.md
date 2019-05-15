@@ -47,7 +47,7 @@ The simplest formal definition of a category is:
 >>
 >> * for each pair *x*, *y* of objects, a collection *C*<sub>1</sub>(x, y) of `morphisms` from *x* to *y*;
 >>
->> * for each triple *x*, *y*, *z* of objects, a function ∘:
+>> * for each triple *x*, *y*, *z* of objects, a function ·:
 >>>
 >>>> *C*<sub>1</sub>(y, z) × *C*<sub>1</sub>(x, y) → *C*<sub>1</sub>(x, z)
 >>>
@@ -57,8 +57,8 @@ The simplest formal definition of a category is:
 >>
 >> * such that the following properties are satisfied:
 >>>
->>> * `associativity`: for each quadruple *w*, *x*, *y*, *z* of objects, if *f* ∈ *C*<sub>1</sub>(y, z), *g* ∈ *C*<sub>1</sub>(x, y), and *h* ∈ *C*<sub>1</sub>(w,x), then (*f*∘*g*)∘*h*=*f*∘(*g*∘*h*);
->>> * `the left and right unit laws`: for each pair *x*, *y*, of objects, if *f* ∈ *C*<sub>1</sub>(x,y), then 1<sub>y</sub>∘*f*=*f*=*f*∘1<sub>x</sub>.
+>>> * `associativity`: for each quadruple *w*, *x*, *y*, *z* of objects, if *f* ∈ *C*<sub>1</sub>(y, z), *g* ∈ *C*<sub>1</sub>(x, y), and *h* ∈ *C*<sub>1</sub>(w,x), then (*f*·*g*)·*h*=*f*·(*g*·*h*);
+>>> * `the left and right unit laws`: for each pair *x*, *y*, of objects, if *f* ∈ *C*<sub>1</sub>(x,y), then 1<sub>y</sub>·*f*=*f*=*f*∘1<sub>x</sub>.
 
 People also often write *x* ∈ ***C*** instead of *x* ∈ *C*<sub>0</sub> as a short way to indicate that *x* is an object of ***C***.
 
@@ -99,27 +99,6 @@ identity(nan) === nan // false
 ***
 
 So far we are able to prove the correctness of our program in some extent: by only using type notations of our functions to prove whether functions can be composed together while leaving the implementation alone. (But still a long way to do the [*formal verification*][3], the other tools would be Type theory, denotational/operational semantics, proof theory, etc).
-
-As you might know, the functions in the `set theory` can be a `surjection` (which simply means that for every elements in the co-domain there is a corresponding element in the domain), or  an `injection` (different elements in the domain would be mapping to different element in the co-domain) or can be both at the same time. In category theory, the morphisms has similar properties called `epimorphism` and `monomorphism`:
-
-* An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
-    > *g*<sub>1</sub> ∘ *f* = *g*<sub>2</sub> ∘ *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
-
-* An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
-    > *f* ∘ *μ*<sub>1</sub> = *f* ∘ *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>
-
-In a category whose objects are sets, if an morphism is both `epi` and `mono`, then we can tell that the morphism is `invertible` and the head and the tail objects of the arrow are `isomorphic`.
-
-An simple example of isomorphic can be found in the representations of natural numbers. Given infinite amount of storage, let's say:
-> `[]`, as an instance of array, can be treated as 0;
->
-> `[[]]` can be treated as 1;
->
-> `[[[]]]` can be treated as 2;
->
-> ...
-
-Then it's easy to prove that there is an isomorphism between all natural numbers and this square brackets kind of representation. Actually this kind of representation has a name -- `Curry-Howard isomorphism`.
 
 ###  2.2 Monoid
 
@@ -182,7 +161,7 @@ In the diagrams above, the initial objects are 30, {2,3,5} and 'clean performanc
 
 But a category may have many initial/terminal objects if it has. But all of them, initial/terminal objects, are unique up to a unique isomorphism. So in some extent, we can use the word 'the' in the definition of the initial/terminal object.
 
-Further more, in the category of sets (I will denote it as ***Set*** in follows chapters, be careful it starts with the upper case 'S'), the initial object is the empty set:∅, because ∅ is subset of every set. And the terminal object in ***Set*** are the the singleton set (again, singleton is up to isomorphism).
+Further more, in the category of sets (I will denote it as ***Set*** in follows chapters, be careful it starts with the upper case 'S'), the initial object is the empty set:∅, because ∅ is subset of every set. And the terminal object in ***Set*** are the the singleton set (again, singleton is up to isomorphism). And that's why we can denote `initial objects` as `0` and  `terminal objects` as `1`.
 
 Since we said that types can be seen as sets, so morphisms points to the terminal object can be written in Typescript as:
 
@@ -250,8 +229,10 @@ Now I am showing you the power of the `duality`. By simply flipping the arrow of
 > there exists a unique morphism:
 > > f: *P* → *Y*
 >
-> such that f<sub>1</sub> = f ∘ i<sub>1</sub> and f<sub>2</sub> = f ∘ i<sub>2</sub>. That is, the following diagram commutes:
+> such that f<sub>1</sub> = f · i<sub>1</sub> and f<sub>2</sub> = f · i<sub>2</sub>. That is, the following diagram commutes:
 > > ![product](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/coproduct.svg)
+
+*P* can also be denoted as *X<sub>1</sub>* + *X<sub>2</sub>*.
 
 And the example of the coproduct is the first way we combining the two lines, to be more general, in ***Set***, the coproduct of 2 sets is the disjoint union of them.
 
@@ -419,6 +400,108 @@ For those who are interested, the other two pillars of the category theory are:
 * and `Limit & colimit` which is strong related to `product & coproduct` example we just talked about.
 
 ---
+
+### 2.5 Isomorphism
+
+As you might know, the functions in the `set theory` can be a `surjection` (which simply means that for every elements in the co-domain there is a corresponding element in the domain), or an `injection` (different elements in the domain would be mapping to different element in the co-domain) or can be both at the same time. In category theory, the morphisms has similar properties called `epimorphism` and `monomorphism`:
+
+* An epimorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *g*<sub>1</sub> and *g*<sub>2</sub>: *Y*→*Z*:
+    > *g*<sub>1</sub> · *f* = *g*<sub>2</sub> · *f* => *g*<sub>1</sub> = *g*<sub>2</sub>
+
+* An monomorphism in a category is a morphism *f*: *X*→*Y* that for all morphisms *μ*<sub>1</sub> and *μ*<sub>2</sub>: *W*→*X*:
+    > *f* · *μ*<sub>1</sub> = *f* · *μ*<sub>2</sub> => *μ*<sub>1</sub> = *μ*<sub>2</sub>
+
+In a category whose objects are sets, if an morphism is both `epi` and `mono`, then we can tell that the morphism is `invertible` and the head and the tail objects of the arrow are `isomorphic`, which denoted by the symbol `≅`.
+
+An isomorphism means two things are not strictly equal, but alike to each other in some way. Which help us to reason our code about `what`: the relationships that an object has with other objects, instead of `how`: the implementation.
+
+Remember in the chapter 2.3, we have `1`, `0`, `×` and `+`, it's natural to ask do we have the laws from high-school algebra? The answer is yes:
+
+```
+sums:
+X + 0 ≅ X X + Y ≅ Y + X
+(X + Y) + Z ≅ X + (Y + Z)
+
+products:
+X × 1 ≅ X 0 × X ≅ 0 X × Y ≅ Y × X
+(X × Y) × Z ≅ X × (Y × Z)
+
+product over sum:
+(X + Y) × Z ≅ (X × Z) + (Y × Z)
+```
+
+An simple example of isomorphic can be found in the representations of natural numbers. Given infinite amount of storage, let's say:
+> `[]`, as an instance of array, can be treated as 0, and vise-versa;
+>
+> `[[]]` can be treated as 1;
+>
+> `[[[]]]` can be treated as 2;
+>
+> ...
+
+Then it's easy to prove that there is an isomorphism between all natural numbers and this square brackets kind of representation.
+
+Another practical example, given the definition of rose trees and binary trees:
+
+```Typescript
+type RoseTree<a> = {
+  left: a,
+  right?: RoseTree<a>,
+}
+
+type Tree<a> = null | {
+  node: a,
+  left: Tree<a>,
+  right: Tree<a>,
+}
+```
+
+Forests of rose trees and binary trees are in a so-called `natural correspondence`, and we can
+represent any forest as a binary tree. So forests of rose trees are isomorphic to a binary tree.
+
+One way of proving this is by implementing the functions:
+
+```Typescript
+function toTree<a>(roses: RoseTree<a>[]): Tree<a> {
+  if (roses.length === 0) {
+    return null;
+  }
+  const [rose, ...rest] = roses;
+  return {
+    node: rose.left,
+    right: rose.right ? toTree([rose.right]) : null,
+    left: toTree(rest),
+  };
+}
+
+function toForest<a>(tree: Tree<a>): RoseTree<a>[] {
+  if (!tree) {
+    return [];
+  }
+  const { node, left, right } = tree;
+  return [
+    Object.assign(
+      {
+        left: node,
+      },
+      left
+        ? {
+            right: toForest(left),
+          }
+        : {},
+    ),
+    ...toForest(right),
+  ];
+}
+```
+
+And then checks the equivalence of the elements between the input and output structures recursively, to get an indirect proof that:
+`toTree · toForest = id` and `toForest · toTree = id`.
+
+But there are flaws only by writing tests for this case! Because there are infinite types since the definitions are generic!
+
+The other way around is by writing algebra proofs using the so-called `Curry-Howard isomorphism`, which of course derives from category theory. More information about the case can be found in this paper: [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf).
+
 
 ### 2.6 Kleisli Category and Monad
 
