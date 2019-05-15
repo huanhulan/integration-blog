@@ -381,7 +381,7 @@ And for a functor *F* that is `fully faithful`, *F* is a bijection on the hom-se
 
 So a fully faithful functor *F* reflect ≅: *F* A ≅ *F* B ⇒ A ≅ B. Further more a fully faithful functor has properties: *F* A ≅ *F* B ⇔ A ≅ B
 
-Then the *F* is invertible, if we called the inverse of *F* as *G*, then: f = *G*g ⇐⇒ *F* f = g.
+Then the *F* is invertible, if we called the inverse of *F* as *G*, then: f = *G*g ⇔ *F* f = g.
 
 Then the notion of equivalence of categories comes as: *G*◦*F* ≅ Id<sub>***C***</sub> and *F*◦*G* ≅ Id<sub>***D***</sub>. And since functor preserve relations.
 
@@ -407,7 +407,7 @@ So formally, a natural transformation is:
 >>> ![natural square](/integration-blog/assets/2019-04-15-An-Introduction-about-Category-Theory-for-Programmers/natural_square.svg)
 
 ___
-The α<sub>C</sub> and α<sub>C'</sub> are the components of α on c and C and C' respectively.
+The α<sub>C</sub> and α<sub>C'</sub> are the components of α on ***C*** and ***C'*** respectively.
 ___
 
 This definition is actually quite strong, because since it works for all ob(***C***) which means that a natural transformation can not ever look at the specific object in ***C*** and can not create new objects for ***C*** neither.
