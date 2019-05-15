@@ -521,7 +521,7 @@ function toForest<a>(tree: Tree<a>): RoseTree<a>[] {
 And then checks the equivalence of the elements between the input and output structures recursively, to get an indirect proof that:
 `toTree · toForest = id` and `toForest · toTree = id`.
 
-But there are flaws by only writing tests for this case! Because there are infinite types since the definitions are generic!
+But there are flaws by only writing tests for this case, because there are infinite types since the functions are polymorphic!
 
 The other way around is by writing algebra proofs using the laws like sums and products but more deeply related to category theory. More information about the case can be found in this paper: [Reason Isomorphically!](http://www.cs.ox.ac.uk/people/daniel.james/iso/iso.pdf).
 
