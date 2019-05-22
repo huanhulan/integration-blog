@@ -527,7 +527,9 @@ The other way around is by writing algebra proofs using the laws like sums and p
 
 ### 2.6 Kleisli Category and Monad
 
-Todo
+For programmers, the most intriguing idea of functional programming would probably be the `monads` and they can be confusing/scary since it involves certain understanding of the category theory.
+
+But just like [Brian Beckman](https://www.linkedin.com/in/brianbeckman) said, [don't fear the Monad](https://www.youtube.com/watch?v=ZhuHCtR3xq8), because the idea itself can be intuitive. The first step we'd take is to understand the [Kleisli Category](https://ncatlab.org/nlab/show/Kleisli+category).
 
 ## 3. Conclusion
 
